@@ -1,6 +1,4 @@
 passwd
 frontend/node_modules/
 .yarn
-.cache
-.v8flags.*
-.yarnrc
+public/views/

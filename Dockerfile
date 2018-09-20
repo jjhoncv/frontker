@@ -1,2 +1,2 @@
-FROM  node:10.10.0-slim
+FROM  node:9.11.1-slim
 
