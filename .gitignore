@@ -2,3 +2,7 @@ passwd
 frontend/node_modules/
 .yarn
 public/views/
+yarn.lock
+.v8flags.*
+frontend/yarn-error.log
+public/static/
