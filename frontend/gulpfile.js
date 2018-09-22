@@ -7,63 +7,65 @@ const gulp = require('gulp'),
       runSequence = require('run-sequence'),
       del = require('del');
 
+const path = require('./config').path;
+
 gulp.task('clean', function(cb){
   return del([
-    './../public/static/css',
-    './../public/static/fonts',
-    './../public/views/*',
-    './../public/static/icons',
-    './../public/static/imgs',
-    './../public/static/js'
+    path.public + 'static/css',
+    path.public + 'static/fonts',
+    path.public + 'views/*',
+    path.public + 'static/icons',
+    path.public + 'static/imgs',
+    path.public + 'static/js'
   ], { force: true }, cb);
 })
 
 gulp.task('html', function(){
-  return gulp.src('./src/html/*.pug')
+  return gulp.src(path.src + 'html/*.pug')
     .pipe(pug({
       pretty: true
     }))
-    .pipe(gulp.dest('./../public/views'))
+    .pipe(gulp.dest(path.public + 'views'))
 })
 
 gulp.task('css', function(){
-  return gulp.src('./src/css/*.styl')
+  return gulp.src(path.src + 'css/*.styl')
     .pipe(stylus())
-    .pipe(gulp.dest('./../public/static/css'))
+    .pipe(gulp.dest(path.public + 'static/css'))
 })
 
 gulp.task('js', function(){
-  return gulp.src('./src/js/*.js')
+  return gulp.src(path.src + 'js/*.js')
     .pipe(babel({
         presets: ['@babel/env']
     }))
-    .pipe(gulp.dest('./../public/static/js'))
+    .pipe(gulp.dest(path.public + 'static/js'))
 })
 
 gulp.task('imgs', function(){
-  return gulp.src('./src/imgs/*')
+  return gulp.src(path.src + 'imgs/*')
     .pipe(imagemin())
-    .pipe(gulp.dest('./../public/static/imgs'))
+    .pipe(gulp.dest(path.public + 'static/imgs'))
 })
 
 gulp.task('icons', function(){
-  return gulp.src('./src/icons/*.svg')
+  return gulp.src(path.src + 'icons/*.svg')
     .pipe(svgSymbols())
-    .pipe(gulp.dest('./../public/static/icons'))
+    .pipe(gulp.dest(path.public + 'static/icons'))
 })
 
 gulp.task('fonts', function(){
-  return gulp.src('./src/fonts/*')
-    .pipe(gulp.dest('./../public/static/fonts'))
+  return gulp.src(path.src + 'fonts/*')
+    .pipe(gulp.dest(path.public + 'static/fonts'))
 })
 
 gulp.task('watch', function(){
-  gulp.watch('./src/css/*.styl', ['css'])
-  gulp.watch('./src/fonts/*', ['fonts'])
-  gulp.watch('./src/html/*.pug', ['html'])
-  gulp.watch('./src/icons/*.svg', ['icons'])
-  gulp.watch('./src/imgs/*', ['imgs'])
-  gulp.watch('./src/js/*.js', ['js'])
+  gulp.watch(path.src + 'css/*.styl', ['css'])
+  gulp.watch(path.src + 'fonts/*', ['fonts'])
+  gulp.watch(path.src + 'html/*.pug', ['html'])
+  gulp.watch(path.src + 'icons/*.svg', ['icons'])
+  gulp.watch(path.src + 'imgs/*', ['imgs'])
+  gulp.watch(path.src + 'js/*.js', ['js'])
 })
 
 gulp.task('default', ['clean'], function(cb){

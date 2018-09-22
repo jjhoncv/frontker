@@ -28,7 +28,7 @@ watch:
 
 build:
 	@make run-node \
-	NODE_COMMAND='yarn tasks'
+	NODE_COMMAND='yarn tasks $(TASK)'
 	@make remove
 
 help:
