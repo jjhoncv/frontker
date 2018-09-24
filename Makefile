@@ -14,7 +14,7 @@ image:
 	docker build -t jjhoncv/node:9.11.1 .
 
 run-node: detect-user
-	docker run -it --rm -u $(USERID):$(USERID) -v $(PWD)/passwd:/etc/passwd:ro -v $(PWD):/app -w /app/frontend jjhoncv/node:9.11.1 sh -c '$(NODE_COMMAND)'
+	docker run -it --rm $(PORT) -u $(USERID):$(USERID) -v $(PWD)/passwd:/etc/passwd:ro -v $(PWD):/app -w /app/frontend jjhoncv/node:9.11.1 sh -c '$(NODE_COMMAND)'
 
 install:
 	@make run-node \
@@ -23,12 +23,13 @@ install:
 
 watch:
 	@make run-node \
-	NODE_COMMAND='yarn tasks watch'
+	NODE_COMMAND='yarn watch' \
+	PORT='-p 127.0.0.1:3000:3000'
 	@make remove
 
 build:
 	@make run-node \
-	NODE_COMMAND='yarn tasks $(TASK)'
+	NODE_COMMAND='yarn build $(TASK)'
 	@make remove
 
 help:
