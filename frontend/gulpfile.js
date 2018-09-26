@@ -33,12 +33,20 @@ gulp.task('html', function(){
       pretty: true,
       locals: vars
     }))
+    .on('error', function(err){
+      console.log(err.toString())
+      this.emit('end');
+    })
     .pipe(gulp.dest(path.app + 'views'))
 })
 
 gulp.task('css', function(){
   return gulp.src(path.src + 'css/*.styl')
     .pipe(stylus())
+    .on('error', function(err){
+      console.log(err.toString())
+      this.emit('end');
+    })
     .pipe(gulp.dest(path.public + 'static/css'))
 })
 
@@ -47,6 +55,10 @@ gulp.task('js', function(){
     .pipe(babel({
         presets: ['@babel/env']
     }))
+    .on('error', function(err){
+      console.log(err.toString())
+      this.emit('end');
+    })
     .pipe(gulp.dest(path.public + 'static/js'))
 })
 
