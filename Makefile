@@ -24,7 +24,7 @@ install:
 watch:
 	@make run-node \
 	NODE_COMMAND='yarn watch' \
-	PORT='-p 127.0.0.1:3000:3000'
+	PORT='-p 3000:3000'
 	@make remove
 
 build:
