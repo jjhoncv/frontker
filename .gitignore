@@ -1,8 +1,5 @@
-passwd
 frontend/node_modules/
-.yarn
 app/views/
-yarn.lock
 .v8flags.*
 frontend/yarn-error.log
 public/static/

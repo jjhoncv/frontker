@@ -5,6 +5,7 @@
   "main": "gulpfile.js",
   "scripts": {
     "watch": "node_modules/gulp/bin/gulp.js && node_modules/gulp/bin/gulp.js serve",
+    "server": "node server.js",
     "build": "cross-env NODE_ENV=production node_modules/gulp/bin/gulp.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -27,6 +28,7 @@
     "browser-sync": "^2.24.7",
     "cross-env": "^5.2.0",
     "dotenv": "^6.0.0",
-    "dotenv-expand": "^4.2.0"
+    "dotenv-expand": "^4.2.0",
+    "express": "^4.16.4"
   }
 }
