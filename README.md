@@ -1,19 +1,33 @@
-# frontker
+# Frontker
 
 Project front with docker and gulp
 
 Version Docker 18
+Version de node 9.11.1
 
-## Build image docker
+Steps to Work:
+
+## 1. Build image docker
+build the node image to use
+```sh
 make image
+```
 
-## Install dependencies node
+## 2. Install dependencies
+Install the node dependencies for our project 
+```sh
 make install
+```
 
-## build project
+## 3. Build project
+build our project
+```sh
 make build
+```
 
-## watch project
+## 4. Watch project
+watch our project
+```sh
 make watch
-
+```
 
