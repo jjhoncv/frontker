@@ -2,6 +2,8 @@
 
 Project front with docker and gulp
 
+Version Docker 18
+
 ## Build image docker
 make image
 
@@ -13,3 +15,5 @@ make build
 
 ## watch project
 make watch
+
+
