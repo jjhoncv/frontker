@@ -3,3 +3,4 @@ app/views/
 .v8flags.*
 frontend/yarn-error.log
 public/static/
+frontend/yarn.lock

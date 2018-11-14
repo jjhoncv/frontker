@@ -85,7 +85,13 @@ gulp.task('serve', function(){
     server: [
       path.app,
       path.public
-    ]
+    ],
+    middleware: function(req,res,next) {
+      if (req.url === '/') {
+        req.url = '/views/index.html';
+      }
+      return next();
+    }
   })
   gulp.watch(path.src + 'css/*.styl', ['css', browserSync.reload])
   gulp.watch(path.src + 'fonts/*', ['fonts', browserSync.reload])
@@ -94,8 +100,6 @@ gulp.task('serve', function(){
   gulp.watch(path.src + 'imgs/*', ['imgs', browserSync.reload])
   gulp.watch(path.src + 'js/*.js', ['js', browserSync.reload])
 })
-
-
 
 gulp.task('default', ['clean'], function(cb){
   runSequence('html', 'css', 'js', 'imgs', 'icons', 'fonts', cb)
