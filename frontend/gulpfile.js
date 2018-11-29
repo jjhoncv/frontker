@@ -18,12 +18,12 @@ const vars = require('dotenv-expand')(dotenv).parsed;
 
 gulp.task('clean', function(cb){
   return del([
-    path.public + 'static/css',
-    path.public + 'static/fonts',
-    path.app + 'views/*',
-    path.public + 'static/icons',
-    path.public + 'static/imgs',
-    path.public + 'static/js'
+    path.public + 'statics/css',
+    path.public + 'statics/fonts',
+    path.app + '**/*.html',
+    path.public + 'statics/icons',
+    path.public + 'statics/imgs',
+    path.public + 'statics/js'
   ], { force: true }, cb);
 })
 
@@ -37,7 +37,7 @@ gulp.task('html', function(){
       console.log(err.toString())
       this.emit('end');
     })
-    .pipe(gulp.dest(path.app + 'views'))
+    .pipe(gulp.dest(path.app))
 })
 
 gulp.task('css', function(){
@@ -47,7 +47,7 @@ gulp.task('css', function(){
       console.log(err.toString())
       this.emit('end');
     })
-    .pipe(gulp.dest(path.public + 'static/css'))
+    .pipe(gulp.dest(path.public + 'statics/css'))
 })
 
 gulp.task('js', function(){
@@ -59,33 +59,31 @@ gulp.task('js', function(){
       console.log(err.toString())
       this.emit('end');
     })
-    .pipe(gulp.dest(path.public + 'static/js'))
+    .pipe(gulp.dest(path.public + 'statics/js'))
 })
 
 gulp.task('imgs', function(){
   return gulp.src(path.src + 'imgs/*')
     .pipe(imagemin())
-    .pipe(gulp.dest(path.public + 'static/imgs'))
+    .pipe(gulp.dest(path.public + 'statics/imgs'))
 })
 
 gulp.task('icons', function(){
   return gulp.src(path.src + 'icons/*.svg')
     .pipe(svgSymbols())
-    .pipe(gulp.dest(path.public + 'static/icons'))
+    .pipe(gulp.dest(path.public + 'statics/icons'))
 })
 
 gulp.task('fonts', function(){
   return gulp.src(path.src + 'fonts/**/*')
-    .pipe(gulp.dest(path.public + 'static/fonts'))
+    .pipe(gulp.dest(path.public + 'statics/fonts'))
 })
 
 gulp.task('serve', function(){
-
   browserSync.init({
+    open: false,
     server: [
-      path.app,
-      path.public
-    ]
+      path.app    ]
   })
   gulp.watch(path.src + 'css/*.styl', ['css', browserSync.reload])
   gulp.watch(path.src + 'fonts/*', ['fonts', browserSync.reload])

@@ -4,18 +4,18 @@ html(lang="en")
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     meta(http-equiv="X-UA-Compatible", content="ie=edge")
-    title Document
-    link(rel="stylesheet", href=PATH_PUBLIC + "static/css/index.css")
+    title Demo
+    link(rel="stylesheet", href=PATH_PUBLIC + "statics/css/index.css")
   body
-    div.modal
-      div.modal-top
-        a.modal-close close
-      div.modal-content
-    button.show-login Login
-    form.frm-login.hide
-      div
-        input(type="text", name="", placeholder="username")
-      div
-        input(type="password", name="", placeholder="password")
-      button(type="submit") send
-    script(src=PATH_PUBLIC + "static/js/index.js")
+    header
+      .content
+        .logo LOGO
+    main
+      .content
+        h1 My title
+        p Lorem ipsum
+    footer
+      .content
+        .logo LOGO
+
+    script(src=PATH_PUBLIC + "statics/js/index.js")

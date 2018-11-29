@@ -1,0 +1,66 @@
+@font-face {
+  font-family: 'Tagesschrift';
+  src: url("../fonts/NanumGothic-Regular/NanumGothic-Regular.ttf");
+}
+* {
+  padding: 0;
+  margin: 0;
+  font-family: arial;
+}
+.content {
+  width: 1440px;
+}
+.content p {
+  margin: 15px 0;
+}
+.logo {
+  font-family: 'Tagesschrift';
+  font-size: 45px;
+}
+header {
+  width: 100%;
+  background: #79c6d9;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+main .content {
+  padding: 20px 0;
+}
+footer {
+  min-height: 200px;
+  background: #012840;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+footer .logo {
+  color: #fff;
+  font-size: 35px;
+}
+body {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.hide {
+  display: none;
+}
+.modal {
+  min-height: 200px;
+  min-width: 200px;
+  width: 300px;
+  border: 1px solid #ddd;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  right: 0;
+  margin: 0 auto;
+}

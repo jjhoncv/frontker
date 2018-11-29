@@ -1,7 +1,7 @@
 module.exports = {
   path : {
     app: './../app/',
-    public: './../public/',
+    public: './../app/',
     src: './src/',
   }
 }
