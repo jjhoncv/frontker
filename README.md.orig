@@ -2,6 +2,10 @@
 
 Project front with docker and gulp
 
+<<<<<<< HEAD
+## Build image docker
+
+=======
 ## Features
 
 - Version Docker 18
@@ -13,24 +17,40 @@ Steps to work
 ### 1. Build image docker
 build the node image to use
 ```sh
+>>>>>>> cdc53930a742238ba4fb300ad07ab37179e22383
 make image
 ```
 
+<<<<<<< HEAD
+## Install dependencies node
+
+=======
 ### 2. Install dependencies
 Install the node dependencies for our project 
 ```sh
+>>>>>>> cdc53930a742238ba4fb300ad07ab37179e22383
 make install
 ```
 
+<<<<<<< HEAD
+## build project
+
+=======
 ### 3. Build project
 build our project
 ```sh
+>>>>>>> cdc53930a742238ba4fb300ad07ab37179e22383
 make build
 ```
 
+<<<<<<< HEAD
+## watch project
+
+=======
 ### 4. Watch project
 watch our project
 ```sh
+>>>>>>> cdc53930a742238ba4fb300ad07ab37179e22383
 make watch
 ```
 
