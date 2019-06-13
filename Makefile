@@ -1,23 +1,77 @@
 .DEFAULT_GOAL := help
 
-image:
-	docker build -t jjhoncv/node:9.11.1 docker/node
+## GENERAL ##
+APP_DIR         = app
+FILES_CONFIG    = ""
 
-run:
-	docker run -it --rm -u $$(id -u):$$(id -g) $(PORT) -v $(PWD):/app -w /app/frontend jjhoncv/node:9.11.1 $(NODE_COMMAND)
+WORKDIR         ?= ${APP_DIR}
+IMAGE_DOCKER	?= node:9.11.1-slim
+IMAGE_DEV       ?= jjhoncv/node:9.11.1-slim
 
-install:
-	@make run \
-	NODE_COMMAND='yarn'
+## FUNCTIONS ##
 
-watch:
-	@make run \
-	NODE_COMMAND='yarn watch' \
-	PORT='-p 3000:3000'
+define detect_user
+	$(eval WHOAMI := $(shell whoami))
+	$(eval USERID := $(shell id -u))
+	$(shell echo 'USERNAME:x:USERID:USERID::/app:/sbin/nologin' > $(PWD)/passwd.tmpl)
+	$(shell \
+		cat $(PWD)/passwd.tmpl | sed 's/USERNAME/$(WHOAMI)/g' \
+			| sed 's/USERID/$(USERID)/g' > $(PWD)/passwd)
+	$(shell rm -rf $(PWD)/passwd.tmpl)
+endef
+
+build.image: ## Construir imagen para development: make build.image
+	docker build \
+		-f docker/node/Dockerfile \
+		--no-cache \
+		--build-arg IMAGE=${IMAGE_DOCKER} \
+		-t $(IMAGE_DEV) \
+		docker/node/ \
+
+npm.install: ## Instalar depedencias npm: make npm.install
+	$(call detect_user) 
+	docker run \
+		-it \
+		--rm \
+		--workdir /${WORKDIR} \
+		-u ${USERID}:${USERID} \
+		-v ${PWD}/passwd:/etc/passwd:ro \
+		-v ${PWD}/${APP_DIR}:/${WORKDIR} \
+		${IMAGE_DEV} \
+		npm install --production
+
+gulp.dist: ## Construye site estatico: make gulp.dist
+	$(call detect_user) 
+	docker run \
+		-it \
+		--rm \
+		--workdir /${WORKDIR} \
+		-u ${USERID}:${USERID} \
+		-v ${PWD}/passwd:/etc/passwd:ro \
+		-v ${PWD}/${APP_DIR}:/${WORKDIR} \
+		${IMAGE_DEV} \
+		npm run dist $(TASK)
 
 build:
-	@make run \
-	NODE_COMMAND='yarn build $(TASK)'
+	@make gulp.dist
+	rsync -a app/dist/* public/
+
+start: ## Up the docker containers, use me with: make start
+	export IMAGE_DEV="$(IMAGE_DEV)" USER="${USER}" && \
+		docker-compose up -d
+
+stop: ## Stop the docker containers, use me with: make stop
+	export IMAGE_DEV="$(IMAGE_DEV)" && \
+		docker-compose stop
+
+logs: ## View logs docker containers, use me with: make logs
+	export IMAGE_DEV="$(IMAGE_DEV)" && \
+		docker-compose logs -f
+
+## Target Help ##
 
 help:
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-16s\033[0m %s\n", $$1, $$2}'
+	@printf "\033[31m%-22s %-59s %s\033[0m\n" "Target" " Help" "Usage"; \
+	printf "\033[31m%-22s %-59s %s\033[0m\n"  "------" " ----" "-----"; \
+	grep -hE '^\S+:.*## .*$$' $(MAKEFILE_LIST) | sed -e 's/:.*##\s*/:/' | sort | awk 'BEGIN {FS = ":"}; {printf "\033[32m%-22s\033[0m %-58s \033[34m%s\033[0m\n", $$1, $$2, $$3}'
+
