@@ -50,7 +50,7 @@ gulp.build: ## Construye site estatico: make gulp.build
 		-v ${PWD}/passwd:/etc/passwd:ro \
 		-v ${PWD}/${APP_DIR}:/${WORKDIR} \
 		${IMAGE_DEV} \
-		npm run dist $(TASK)
+		npm run build $(TASK)
 	rm -fr public/
 	rsync -a app/dist/* public/ 
 
