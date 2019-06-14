@@ -1,24 +1,18 @@
-<!DOCTYPE html>
-html(lang="en")
-  head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    meta(http-equiv="X-UA-Compatible", content="ie=edge")
-    title Demo
-    link(rel="stylesheet", href=PATH_PUBLIC + "statics/css/index.css")
-  body
-    header
-      .content
-        .logo LOGO
-    main
-      .content
-        h1 My title
-        p Lorem ipsum ss
-        img(src=PATH_PUBLIC + "statics/imgs/gulp.png", alt="")
-        img(src=PATH_PUBLIC + "statics/imgs/assets.png", alt="")
+extends _layout.pug
 
-    footer
-      .content
-        .logo LOGO
+block content
+  header
+    .content
+      .logo 
+        img(src=`${path.public}statics/icons/icon-frontend.svg`)
+        span Frontker
+  main
+    .content
+      h1 My title
+      p Lorem ipsum ss
+      img(src=`${path.public}statics/imgs/gulp.png`, alt="")
+      img(src=`${path.public}statics/imgs/assets.png`, alt="")
 
-    script(src=PATH_PUBLIC + "statics/js/index.js")
+  footer
+    .content
+      .logo Frontker
