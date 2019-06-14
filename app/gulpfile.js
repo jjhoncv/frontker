@@ -81,28 +81,18 @@ gulp.task('fonts', function () {
 
 gulp.task('serve', function () {
 
-
   browserSync.init({
     open: false,
-    server: [
-      path.dist]
-  })
+    server: path.dist
+  });
+
+  gulp.watch(path.src + 'js/*.js', ['js', browserSync.reload])
   gulp.watch(path.src + 'css/*.styl', ['css', browserSync.reload])
   gulp.watch(path.src + 'fonts/*', ['fonts', browserSync.reload])
   gulp.watch(path.src + 'html/*.pug', ['html', browserSync.reload])
   gulp.watch(path.src + 'icons/*.svg', ['icons', browserSync.reload])
-  gulp.watch(path.src + 'imgs/*.png', function (event) {
-    switch (event.type) {
-      case 'added':
-      case 'changed':
-        console.log('changed!!')
-        break;
-    }
-  })
-  gulp.watch(path.src + 'js/*.js', ['js', browserSync.reload])
+  gulp.watch(path.src + 'imgs/*.png', ['imgs', browserSync.reload])
 })
-
-
 
 gulp.task('default', ['clean'], function (cb) {
   runSequence('html', 'css', 'js', 'imgs', 'icons', 'fonts', cb)

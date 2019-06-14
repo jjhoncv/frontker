@@ -40,7 +40,7 @@ npm.install: ## Instalar depedencias npm: make npm.install
 		${IMAGE_DEV} \
 		npm install --production
 
-gulp.dist: ## Construye site estatico: make gulp.dist
+gulp.build: ## Construye site estatico: make gulp.build
 	$(call detect_user) 
 	docker run \
 		-it \
@@ -51,13 +51,14 @@ gulp.dist: ## Construye site estatico: make gulp.dist
 		-v ${PWD}/${APP_DIR}:/${WORKDIR} \
 		${IMAGE_DEV} \
 		npm run dist $(TASK)
-
-build:
-	@make gulp.dist
-	rsync -a app/dist/* public/
+	rm -fr public/
+	rsync -a app/dist/* public/ 
 
 start: ## Up the docker containers, use me with: make start
-	export IMAGE_DEV="$(IMAGE_DEV)" USER="${USER}" && \
+	$(call detect_user) 
+	export IMAGE_DEV="$(IMAGE_DEV)" && \
+	export USER="${USERID}:${USERID}" && \
+	export PWD="${PWD}" && \
 		docker-compose up -d
 
 stop: ## Stop the docker containers, use me with: make stop
