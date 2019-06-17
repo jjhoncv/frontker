@@ -2,7 +2,7 @@
 
 Project front with docker and gulp
 
-[link frontker!](https://jjhoncv.github.io/frontker)
+[demo de la vista!](https://jjhoncv.github.io/frontker)
 
 ## Features
 
