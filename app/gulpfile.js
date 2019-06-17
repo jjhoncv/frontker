@@ -3,8 +3,9 @@ const gulp = require('gulp'),
   stylus = require('gulp-stylus'),
   babel = require('gulp-babel'),
   imagemin = require('gulp-imagemin'),
-  svgSymbols = require('gulp-svg-symbols'),
+  svgmin = require('gulp-svgmin'),
   browserSync = require('browser-sync'),
+  nib = require('nib'),
   path = require('./config').path,
   del = require('del');
 
@@ -26,8 +27,14 @@ const clean = () => del([
   path.dist + 'statics/js'
 ]);
 
+//- Task js
+const pathJS = [
+  path.src + 'js/*.js',
+  "!" + path.src + 'js/_*.js'
+];
+
 const js = () =>
-  gulp.src(path.src + 'js/*.js')
+  gulp.src(pathJS)
     .pipe(babel())
     .on('error', (err) => {
       console.log(err.toString())
@@ -35,11 +42,14 @@ const js = () =>
     })
     .pipe(gulp.dest(path.dist + 'statics/js'))
 
+//- Task html
+const pathPug = [
+  path.src + 'html/*.pug',
+  "!" + path.src + 'html/_*.pug'
+];
+
 const html = () =>
-  gulp.src([
-    path.src + 'html/*.pug',
-    "!" + path.src + 'html/_*.pug'
-  ])
+  gulp.src(pathPug)
     .pipe(pug({
       pretty: true,
       locals: vars
@@ -50,12 +60,17 @@ const html = () =>
     })
     .pipe(gulp.dest(path.dist))
 
+const pathStylus = [
+  path.src + 'css/*.styl',
+  "!" + path.src + 'css/_*.styl'
+];
+
+//- Task css
 const css = () =>
-  gulp.src([
-    "!" + path.src + 'css/_*.styl',
-    path.src + 'css/*.styl'
-  ])
-    .pipe(stylus())
+  gulp.src(pathStylus)
+    .pipe(stylus({
+      use: nib()
+    }))
     .on('error', (err) => {
       console.log(err.toString())
       this.emit('end');
@@ -63,13 +78,13 @@ const css = () =>
     .pipe(gulp.dest(path.dist + 'statics/css'))
 
 const imgs = () =>
-  gulp.src(path.src + 'imgs/*.png')
+  gulp.src(path.src + 'imgs/*')
     .pipe(imagemin())
     .pipe(gulp.dest(path.dist + 'statics/imgs'))
 
 const icons = () =>
   gulp.src(path.src + 'icons/*.svg')
-    .pipe(svgSymbols())
+    .pipe(svgmin())
     .pipe(gulp.dest(path.dist + 'statics/icons'))
 
 const fonts = () =>
@@ -91,12 +106,12 @@ const serve = (done) => {
 }
 
 const watch = () => {
-  gulp.watch(path.src + 'js/*.js', gulp.series(js, reload))
-  gulp.watch(path.src + 'css/*.styl', gulp.series(css, reload))
+  gulp.watch(pathJS, gulp.series(js, reload))
+  gulp.watch(pathStylus, gulp.series(css, reload))
+  gulp.watch(pathPug, gulp.series(html, reload))
   gulp.watch(path.src + 'fonts/*', gulp.series(fonts, reload))
-  gulp.watch(path.src + 'html/*.pug', gulp.series(html, reload))
   gulp.watch(path.src + 'icons/*.svg', gulp.series(icons, reload))
-  gulp.watch(path.src + 'imgs/*.png', gulp.series(imgs, reload))
+  gulp.watch(path.src + 'imgs/*', gulp.series(imgs, reload))
 }
 
 const build = gulp.series(

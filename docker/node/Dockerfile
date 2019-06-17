@@ -1,3 +1,3 @@
-FROM  node:9.11.1-slim
+FROM  node:12-slim
 
 EXPOSE 3000

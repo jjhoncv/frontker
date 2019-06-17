@@ -1,31 +1,24 @@
-@font-face
-  font-family 'Chopsic'
-  font-style normal
-  src url('../fonts/Chopsic-font/Chopsic.ttf') format("truetype"), \
-      url('../fonts/Chopsic-font/Chopsic.woff') format("woff");
-
-*
-  padding 0
-  margin 0
-  font-family arial
+@import '_style'
 
 .content
-  width 1440px
+  width 95%
+  margin 0 auto
   p
     margin 15px 0
 
 .logo
-  font-family 'Chopsic'
-  font-size 24px
-  color #cacaca
+  font-family 'AnotherFlight'
+  font-size 32px
+  color #d1f122ee
+  span
+    margin-left 10px
 
 header
   width 100%
   background #383838
-  min-height 100px
+  min-height 80px
   display flex
   align-items center
-  justify-content center
 
 main
   flex 1
@@ -36,15 +29,10 @@ main
     padding 20px 0
 
 footer
-  min-height 200px
-  background #012840
-  align-items center
-  justify-content center
+  background #ecb330
   display flex
-
-  .logo
-    color white
-    font-size 35px
+  p
+    font-family 'arial'
 
 body
   background white

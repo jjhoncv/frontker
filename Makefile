@@ -5,8 +5,8 @@ APP_DIR         = app
 FILES_CONFIG    = ""
 
 WORKDIR         ?= ${APP_DIR}
-IMAGE_DOCKER	?= node:9.11.1-slim
-IMAGE_DEV       ?= jjhoncv/node:9.11.1-slim
+IMAGE_DOCKER	?= node:12-slim
+IMAGE_DEV       ?= jjhoncv/node:12-slim
 
 ## FUNCTIONS ##
 
