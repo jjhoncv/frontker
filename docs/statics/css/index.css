@@ -1,0 +1,285 @@
+* {
+  box-sizing: border-box;
+}
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+}
+border 0 {
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquotebefore,
+blockquoteafter,
+qbefore,
+qafter {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+@font-face {
+  font-family: 'Chopsic';
+  font-style: normal;
+  src: url("../fonts/Chopsic-font/Chopsic.ttf") format("truetype"), url("../fonts/Chopsic-font/Chopsic.woff") format("woff");
+}
+@font-face {
+  font-family: 'AnotherFlight';
+  font-style: normal;
+  src: url("../fonts/another-flight-font/Another-Flight.ttf") format("truetype"), url("../fonts/another-flight-font/Another-Flight.woff") format("woff");
+}
+#header,
+#main,
+#footer {
+  margin-left: 10%;
+  margin-right: 10%;
+  -webkit-transition: margin 0.3s ease-out;
+  -moz-transition: margin 0.3s ease-out;
+  -o-transition: margin 0.3s ease-out;
+  -ms-transition: margin 0.3s ease-out;
+  transition: margin 0.3s ease-out;
+}
+@media screen and (max-width: 1280px) {
+  #header,
+  #main,
+  #footer {
+    margin-left: 7.5%;
+    margin-right: 7.5%;
+    -webkit-transition: margin 0.3s ease-out;
+    -moz-transition: margin 0.3s ease-out;
+    -o-transition: margin 0.3s ease-out;
+    -ms-transition: margin 0.3s ease-out;
+    transition: margin 0.3s ease-out;
+  }
+}
+@media screen and (max-width: 1120px) {
+  #header,
+  #main,
+  #footer {
+    margin-left: 5%;
+    margin-right: 5%;
+    -webkit-transition: margin 0.3s ease-out;
+    -moz-transition: margin 0.3s ease-out;
+    -o-transition: margin 0.3s ease-out;
+    -ms-transition: margin 0.3s ease-out;
+    transition: margin 0.3s ease-out;
+  }
+}
+@media screen and (max-width: 960px) {
+  #header,
+  #main,
+  #footer {
+    margin-left: 0%;
+    margin-right: 0%;
+    -webkit-transition: margin 0.3s ease-out;
+    -moz-transition: margin 0.3s ease-out;
+    -o-transition: margin 0.3s ease-out;
+    -ms-transition: margin 0.3s ease-out;
+    transition: margin 0.3s ease-out;
+  }
+}
+.content {
+  width: 95%;
+  margin: 0 auto;
+}
+.content p {
+  margin: 15px 0;
+}
+.logo {
+  font-family: 'AnotherFlight';
+  font-size: 32px;
+  color: rgba(209,241,34,0.933);
+}
+.logo span {
+  margin-left: 10px;
+}
+header {
+  width: 100%;
+  background: #383838;
+  min-height: 80px;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -o-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+main {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -o-box-flex: 1;
+  box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -o-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+main .content {
+  padding: 20px 0;
+}
+footer {
+  background: #ecb330;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+}
+footer p {
+  font-family: 'arial';
+}
+body {
+  background: #fff;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -o-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.hide {
+  display: none;
+}
+.modal {
+  min-height: 200px;
+  min-width: 200px;
+  width: 300px;
+  border: 1px solid #ddd;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  right: 0;
+  margin: 0 auto;
+}

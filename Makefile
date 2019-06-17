@@ -51,8 +51,8 @@ gulp.build: ## Construye site estatico: make gulp.build
 		-v ${PWD}/${APP_DIR}:/${WORKDIR} \
 		${IMAGE_DEV} \
 		npm run build $(TASK)
-	rm -fr public/
-	rsync -a app/dist/* public/ 
+	rm -fr docs/
+	rsync -a app/dist/* docs/ 
 
 start: ## Up the docker containers, use me with: make start
 	$(call detect_user) 
