@@ -29,9 +29,11 @@ build.image: ## Construir imagen para development: make build.image
 		docker/node/ \
 
 npm.install: ## Instalar depedencias npm: make npm.install
+	cd app; \
 	npm install --production
 
 gulp.build: ## Construye site estatico: make gulp.build
+	cd app; \
 	npm run build
 	# rm -fr docs/
 	# rsync -a app/dist/* docs/ 
