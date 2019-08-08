@@ -34,8 +34,7 @@ npm.install: ## Instalar depedencias npm: make npm.install
 
 gulp.build: ## Construye site estatico: make gulp.build
 	cd app; \
-	npm run build
-	# rm -fr docs/
+	npm run build \
 	rsync -a app/dist/* dist/ 
 
 start: ## Up the docker containers, use me with: make start
