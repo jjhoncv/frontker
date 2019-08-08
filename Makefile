@@ -70,9 +70,9 @@ logs: ## View logs docker containers, use me with: make logs
 		docker-compose logs -f
 
 build.dist: ## Contruye todos los staticos ##
-  @make build.image
-  @make npm.install
-  @make gulp.build
+	@make build.image
+	@make npm.install
+	@make gulp.build
 
 ## Target Help ##
 
