@@ -36,7 +36,7 @@ gulp.build: ## Construye site estatico: make gulp.build
 	cd app; \
 	npm run build
 	# rm -fr docs/
-	# rsync -a app/dist/* docs/ 
+	rsync -a app/dist/* dist/ 
 
 start: ## Up the docker containers, use me with: make start
 	$(call detect_user) 
