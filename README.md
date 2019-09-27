@@ -7,7 +7,7 @@ Project front with docker and gulp
 ## Features
 
 - Version Docker 18
-- Version de node 9.11.1
+- Version de node 12
 
 ## Use mode
 Steps to work

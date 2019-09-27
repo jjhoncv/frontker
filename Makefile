@@ -16,8 +16,14 @@ define detect_user
 	$(shell echo 'USERNAME:x:USERID:USERID::/app:/sbin/nologin' > $(PWD)/passwd.tmpl)
 	$(shell \
 		cat $(PWD)/passwd.tmpl | sed 's/USERNAME/$(WHOAMI)/g' \
-			| sed 's/USERID/$(USERID)/g' > $(PWD)/passwd)
+			| sed 's/USERID/$(USERID)/g' > $(PWD)/app/client/passwd)
+
+	$(shell \
+		cat $(PWD)/passwd.tmpl | sed 's/USERNAME/$(WHOAMI)/g' \
+			| sed 's/USERID/$(USERID)/g' > $(PWD)/app/server/passwd)
+
 	$(shell rm -rf $(PWD)/passwd.tmpl)
+
 endef
 
 build.image: ## Construir imagen para development: make build.image
@@ -28,17 +34,29 @@ build.image: ## Construir imagen para development: make build.image
 		-t $(IMAGE_DEV) \
 		docker/node/ \
 
-npm.install: ## Instalar depedencias npm: make npm.install
+npm.client.install: ## Instalar depedencias npm: make npm.client.install
 	$(call detect_user) 
 	docker run \
 		-it \
 		--rm \
-		--workdir /${WORKDIR} \
+		--workdir /${WORKDIR}/client \
 		-u ${USERID}:${USERID} \
-		-v ${PWD}/passwd:/etc/passwd:ro \
-		-v ${PWD}/${APP_DIR}:/${WORKDIR} \
+		-v ${PWD}/${APP_DIR}/client/passwd:/etc/passwd:ro \
+		-v ${PWD}/${APP_DIR}/client:/app \
 		${IMAGE_DEV} \
 		npm install --production
+
+npm.server.install: ## Instalar depedencias npm: make npm.server.install
+	$(call detect_user) 
+	docker run \
+		-it \
+		--rm \
+		--workdir /${WORKDIR}/server \
+		-u ${USERID}:${USERID} \
+		-v ${PWD}/${APP_DIR}/server/passwd:/etc/passwd:ro \
+		-v ${PWD}/${APP_DIR}/server:/app \
+		${IMAGE_DEV} \
+		npm install --production		
 
 gulp.build: ## Construye site estatico: make gulp.build
 	$(call detect_user) 

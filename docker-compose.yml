@@ -1,12 +1,20 @@
 version: '3'
 services:
-  web:
+  client:
     image: $IMAGE_DEV
     user: $USER
     volumes:
       - ./app:/app
-      - $PWD/passwd:/etc/passwd:ro
-    working_dir: /app
+    working_dir: /app/client
     command: "npm run start"
     ports:
       - "3000:3000"
+  server:
+    image: $IMAGE_DEV
+    user: $USER
+    volumes:
+      - ./app:/app
+    working_dir: /app/server
+    command: "npm run serve"
+    ports:
+      - "4000:4000"  
