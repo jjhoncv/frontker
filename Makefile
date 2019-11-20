@@ -29,13 +29,30 @@ build.image: ## Construir imagen para development: make build.image
 		docker/node/ \
 
 npm.install: ## Instalar depedencias npm: make npm.install
-	cd app; \
-	npm install --production
+	$(call detect_user) 
+	docker run \
+		-it \
+		--rm \
+		--workdir /${WORKDIR} \
+		-u ${USERID}:${USERID} \
+		-v ${PWD}/passwd:/etc/passwd:ro \
+		-v ${PWD}/${APP_DIR}:/${WORKDIR} \
+		${IMAGE_DEV} \
+		npm install --production
 
 gulp.build: ## Construye site estatico: make gulp.build
-	cd app; \
-	npm run build \
-	rsync -a app/dist/* dist/ 
+	$(call detect_user) 
+	docker run \
+		-it \
+		--rm \
+		--workdir /${WORKDIR} \
+		-u ${USERID}:${USERID} \
+		-v ${PWD}/passwd:/etc/passwd:ro \
+		-v ${PWD}/${APP_DIR}:/${WORKDIR} \
+		${IMAGE_DEV} \
+		npm run build $(TASK)
+	rm -fr docs/
+	rsync -a app/dist/* docs/ 
 
 start: ## Up the docker containers, use me with: make start
 	$(call detect_user) 
@@ -51,11 +68,6 @@ stop: ## Stop the docker containers, use me with: make stop
 logs: ## View logs docker containers, use me with: make logs
 	export IMAGE_DEV="$(IMAGE_DEV)" && \
 		docker-compose logs -f
-
-build.dist: ## Contruye todos los staticos ##
-	# @make build.image
-	@make npm.install
-	@make gulp.build
 
 ## Target Help ##
 
