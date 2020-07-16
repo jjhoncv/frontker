@@ -1,12 +1,10 @@
 version: '3'
 services:
   web:
+    container_name: frontker
     image: $IMAGE_DEV
-    user: $USER
     volumes:
       - ./app:/app
-      - $PWD/passwd:/etc/passwd:ro
-    working_dir: /app
     command: "npm run start"
     ports:
       - "3000:3000"

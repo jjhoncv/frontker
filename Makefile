@@ -8,6 +8,13 @@ WORKDIR         ?= ${APP_DIR}
 IMAGE_DOCKER	?= node:12-slim
 IMAGE_DEV       ?= jjhoncv/node:12-slim
 
+USERID 			?= $(shell id -u)
+
+
+ifeq ($(ENV), prod)
+	NPM_FLAGS = --production
+endif
+
 ## FUNCTIONS ##
 
 define detect_user
@@ -29,19 +36,28 @@ build.image: ## Construir imagen para development: make build.image
 		docker/node/ \
 
 npm.install: ## Instalar depedencias npm: make npm.install
-	cd app; \
-	npm install --production
+	docker run \
+		-it \
+		--rm \
+		--tty=false \
+		--network host \
+		-u ${USERID}:${USERID} \
+		-v ${PWD}/${APP_DIR}:/${WORKDIR} \
+		${IMAGE_DEV} \
+		npm install ${NPM_FLAGS}
 
 gulp.build: ## Construye site estatico: make gulp.build
-	cd app; \
-	npm run build \
-	rsync -a app/dist/* dist/ 
+	docker run \
+		-it \
+		--rm \
+		--tty=false \
+		-u ${USERID}:${USERID} \
+		-v ${PWD}/${APP_DIR}:/${WORKDIR} \
+		${IMAGE_DEV} \
+		npm run build
 
 start: ## Up the docker containers, use me with: make start
-	$(call detect_user) 
 	export IMAGE_DEV="$(IMAGE_DEV)" && \
-	export USER="${USERID}:${USERID}" && \
-	export PWD="${PWD}" && \
 		docker-compose up -d
 
 stop: ## Stop the docker containers, use me with: make stop
@@ -51,11 +67,6 @@ stop: ## Stop the docker containers, use me with: make stop
 logs: ## View logs docker containers, use me with: make logs
 	export IMAGE_DEV="$(IMAGE_DEV)" && \
 		docker-compose logs -f
-
-build.dist: ## Contruye todos los staticos ##
-	# @make build.image
-	@make npm.install
-	@make gulp.build
 
 ## Target Help ##
 

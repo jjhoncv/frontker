@@ -1,3 +1,6 @@
-FROM  node:12-slim
+ARG IMAGE
+FROM $IMAGE
 
-EXPOSE 3000
+RUN mkdir -p /app
+
+WORKDIR /app
